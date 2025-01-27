@@ -17,8 +17,8 @@ public class TelephoneBillCalculatorImpl implements TelephoneBillCalculator {
 
     /**
      * Calculates the total charge for a given phone log.
-     * @param phoneLog
-     * @return
+     * @param phoneLog Phone log as a string in the format "phone number, start time, end time\n"
+     * @return Total charge for the phone log
      */
     @Override
     public BigDecimal calculate(String phoneLog) {
@@ -38,8 +38,8 @@ public class TelephoneBillCalculatorImpl implements TelephoneBillCalculator {
 
     /**
      * Parses the phone log string into a list of CallRecord objects.
-     * @param phoneLog
-     * @return
+     * @param phoneLog Phone log as a string in the format "phone number, start time, end time\n"
+     * @return List of CallRecord objects
      */
     private List<CallRecord> parseLog(String phoneLog) {
         List<CallRecord> callRecords = new ArrayList<>();
@@ -63,8 +63,8 @@ public class TelephoneBillCalculatorImpl implements TelephoneBillCalculator {
 
     /**
      * Calculates the charge for a single call record.
-     * @param record
-     * @return
+     * @param record as CallRecord object
+     * @return Charge value for the certain call record
      */
     private BigDecimal calculateCallCharge(CallRecord record) {
         LocalDateTime start = record.getStartTime();
@@ -85,8 +85,8 @@ public class TelephoneBillCalculatorImpl implements TelephoneBillCalculator {
     }
     /**
      * Checks if the given time is in peak time.
-     * @param time
-     * @return
+     * @param time as LocalDateTime object
+     * @return True if the time is in peak time, false otherwise
      */
     private boolean isPeakTime(LocalDateTime time) {
         int hour = time.getHour();
@@ -94,8 +94,8 @@ public class TelephoneBillCalculatorImpl implements TelephoneBillCalculator {
     }
     /**
      * Finds the most frequent number in the list of call records.
-     * @param callRecords
-     * @return
+     * @param callRecords as List of CallRecord objects
+     * @return Most frequent number or null if there is no frequent number
      */
     private String getMostFrequentNumber(List<CallRecord> callRecords) {
         if (callRecords == null || callRecords.size() <= 1) {
