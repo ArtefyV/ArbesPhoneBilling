@@ -2,6 +2,7 @@ package com.phonecompany.billing;
 
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TelephoneBillCalculatorTest {
@@ -9,8 +10,10 @@ class TelephoneBillCalculatorTest {
     // Basic test to check if the result is not null and greater than zero
     @Test
     void testCalculateReturnsNonEmptyResult() {
-        String phoneLog = "420774577453,13-01-2020 18:10:15,13-01-2020 18:12:57\n" +
-                "420776562353,18-01-2020 08:59:20,18-01-2020 09:10:00";
+        String phoneLog = """
+                420774577453,13-01-2020 18:10:15,13-01-2020 18:12:57
+                420776562324,18-01-2020 08:59:20,18-01-2020 09:10:00
+                """;
 
         BigDecimal result = calculator.calculate(phoneLog);
         assertNotNull(result);
@@ -51,10 +54,12 @@ class TelephoneBillCalculatorTest {
     // Test to check if the result is correct for a call to a most frequent numbers
     @Test
     void testCalculateFrequentNumberDiscount() {
-        String phoneLog = "420774577453,13-01-2020 08:00:00,13-01-2020 08:03:59\n" +
-                "420774577453,13-01-2020 18:20:00,13-01-2020 18:23:59\n" +
-                "420776562324,18-01-2020 09:00:00,13-01-2020 09:04:59\n" +
-                "420776562324,18-01-2020 09:20:00,18-01-2020 09:23:59";
+        String phoneLog = """
+                420774577453,13-01-2020 08:00:00,13-01-2020 08:03:59
+                420774577453,13-01-2020 18:20:00,13-01-2020 18:23:59
+                420776562324,18-01-2020 09:00:00,13-01-2020 09:04:59
+                420776562324,18-01-2020 09:20:00,18-01-2020 09:23:59
+                """;
 
         BigDecimal result = calculator.calculate(phoneLog);
         assertEquals(BigDecimal.valueOf(6.0), result, "Expected charge is 6.0 CZK after discounting calls to the most frequent number");
